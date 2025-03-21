@@ -1,8 +1,7 @@
 
 DEFAULT_PROMPT = (
-    "Generate a single-line, elegant signature for name <name-here> using a dark blue pen on a clean white background. "
-    "The signature should have smooth, continuous lines without breaks, unnecessary flourishes, or extra elements. "
-    "Avoid multiple strokes on a single letter and ensure clarity and professionalism."
+    "Create a cool looking clean signature on one line with dark blue on paper for the name '<name here>' top down view straight view. "
+    "Make the signature look a bit scribly with fast ink motions and sometimes a fast underline strike of the pen."
 )
 
 EVALUATION_PROMPT = (
