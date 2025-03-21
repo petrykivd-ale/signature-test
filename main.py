@@ -1,5 +1,6 @@
 import streamlit as st
 
+# from models.blackforest import BflGenerativeModel
 from models.gemini import GeminiModel, GeminiModelV3
 from prompts import DEFAULT_PROMPT, EVALUATION_PROMPT
 
@@ -7,6 +8,7 @@ from prompts import DEFAULT_PROMPT, EVALUATION_PROMPT
 model_mapper = {
     "gemini": GeminiModel,
     "gemini_v3": GeminiModelV3,
+    # "blackforest": BflGenerativeModel,
 }
 
 
@@ -16,7 +18,7 @@ if "generated_images" not in st.session_state:
 
 st.title("SignUs | Signature Generator")
 st.write(
-    "Generate a unique signature. Click 'Generate More' to create additional styles."
+    "Generate a unique signature. Enter your name in signature and evaluation prompts."
 )
 
 option = st.selectbox(
@@ -38,5 +40,5 @@ with st.expander("Evaluation Prompt"):
 
 
 if st.button("Generate Signature"):
-    model: GeminiModel | GeminiModelV3 = model_mapper[option]()
+    model = model_mapper[option]()
     model.generate(signature_prompt, evaluation_prompt)

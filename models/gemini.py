@@ -5,7 +5,7 @@ from google import genai
 from google.genai import types
 from io import BytesIO
 
-from models.base_model import BaseGenerativeModel
+from models.base import BaseGenerativeModel
 
 
 class GeminiModel(BaseGenerativeModel):
@@ -14,7 +14,7 @@ class GeminiModel(BaseGenerativeModel):
         api_key = st.secrets["GEMINI_API_KEY"]
         self.client = genai.Client(api_key=api_key)
 
-    def generate(self, prompt: str) -> Image.Image | None:
+    def generate(self, prompt: str, evaluation_prompt: str) -> Image.Image | None:
         image_container = st.container()
         generated_count = 0
 
@@ -33,7 +33,7 @@ class GeminiModel(BaseGenerativeModel):
                     for part in response.candidates[0].content.parts:
                         if part.inline_data is not None:
                             image = Image.open(BytesIO(part.inline_data.data))
-                            if self.evaluate(image):
+                            if self.evaluate(image, evaluation_prompt):
                                 st.session_state.generated_images.append(image)
                                 with cols[generated_count % 3]:
                                     st.image(image, use_container_width=True)
