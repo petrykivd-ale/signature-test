@@ -42,6 +42,9 @@ if agree:
     )
 
 
+num_of_images = st.slider("Num of images?", 1, 9, 3)
+
+
 if st.button("Generate Signature"):
     model = model_mapper[option]()
-    model.generate(signature_prompt, evaluation_prompt)
+    model.generate(signature_prompt, evaluation_prompt, num_of_images)

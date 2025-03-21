@@ -14,12 +14,14 @@ class GeminiModel(BaseGenerativeModel):
         api_key = st.secrets["GEMINI_API_KEY"]
         self.client = genai.Client(api_key=api_key)
 
-    def generate(self, prompt: str, evaluation_prompt: str | None = None):
+    def generate(
+        self, prompt: str, evaluation_prompt: str | None = None, num_of_images: int = 3
+    ):
         image_container = st.container()
         try:
             with image_container:
                 cols = st.columns(3)
-                for i in range(9):
+                for i in range(num_of_images):
                     response = self.client.models.generate_content(
                         model=self.model,
                         contents=prompt,
@@ -59,16 +61,18 @@ class GeminiModel(BaseGenerativeModel):
 class GeminiModelV3(GeminiModel):
     model = "imagen-3.0-generate-002"
 
-    def generate(self, prompt: str, evaluation_prompt: str | None = None):
+    def generate(
+        self, prompt: str, evaluation_prompt: str | None = None, num_of_images: int = 3
+    ):
         image_container = st.container()
         try:
             with image_container:
                 cols = st.columns(3)
-                for i in range(3):
+                for i in range(num_of_images):
                     response = self.client.models.generate_images(
                         model=self.model,
                         prompt=prompt,
-                        config=types.GenerateImagesConfig(number_of_images=3),
+                        config=types.GenerateImagesConfig(number_of_images=1),
                     )
                     self._process_response(response, cols, i, evaluation_prompt)
         except Exception as e:

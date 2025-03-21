@@ -14,14 +14,14 @@ class BflGenerativeModel(GeminiModel):
         self.bfl_api_key = st.secrets["BLF_API_KEY"]
 
     def generate(
-        self, prompt: str, evaluation_prompt: str | None
+        self, prompt: str, evaluation_prompt: str | None, num_of_images: int = 3
     ) -> Image.Image | None:
         image_container = st.container()
 
         try:
             with image_container:
                 cols = st.columns(3)
-                for i in range(9):
+                for i in range(num_of_images):
                     response = requests.post(
                         "https://api.us1.bfl.ai/v1/flux-dev",
                         headers={
