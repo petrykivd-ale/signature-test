@@ -8,10 +8,10 @@ from io import BytesIO
 from models.gemini import GeminiModel
 
 
-class BflGenerativeModel(GeminiModel):
+class OpenAIGenerativeModel(GeminiModel):
     def __init__(self):
         super().__init__()
-        self.bfl_api_key = st.secrets["BLF_API_KEY"]
+        self.bfl_api_key = st.secrets["OPENAI_API_KEY"]
 
     def generate(
         self, prompt: str, evaluation_prompt: str | None
