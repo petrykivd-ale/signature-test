@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from PIL import Image
-import streamlit as st
 from typing import Optional
+
 
 class BaseGenerativeModel(ABC):
     @abstractmethod
@@ -15,6 +15,6 @@ class BaseGenerativeModel(ABC):
         pass
 
     @abstractmethod
-    def evaluate(self, image: Image.Image) -> bool:
+    def evaluate(self, image: Image.Image, evaluation_prompt: str) -> bool:
         """Evaluate generated image"""
-        pass 
+        pass
