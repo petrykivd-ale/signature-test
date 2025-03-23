@@ -14,22 +14,37 @@ class GeminiModel(BaseGenerativeModel):
         api_key = st.secrets["GEMINI_API_KEY"]
         self.client = genai.Client(api_key=api_key)
 
-    def generate(
-        self, prompt: str, evaluation_prompt: str | None = None, num_of_images: int = 3
+    def _generate_images(
+        self,
+        prompts: list[dict],
+        evaluation_prompt: str | None = None,
+        is_additional: bool = True,
     ):
         image_container = st.container()
         try:
             with image_container:
                 cols = st.columns(3)
-                for i in range(num_of_images):
-                    response = self.client.models.generate_content(
+                for i, prompt in enumerate(prompts):
+                    print(i, prompt)
+                    for v in prompt.values():
+                        prompt_text = v
+
+                    image = self.client.models.generate_content(
                         model=self.model,
-                        contents=prompt,
+                        contents=prompt_text,
                         config=types.GenerateContentConfig(
                             response_modalities=["Text", "Image"]
                         ),
                     )
-                    self._process_response(response, cols, i, evaluation_prompt)
+                    self._process_response(
+                        image=image,
+                        cols=cols,
+                        index=i,
+                        prompt=prompt,
+                        evaluation_prompt=evaluation_prompt,
+                        is_additional=is_additional,
+                    )
+
         except Exception as e:
             st.error(f"Error generating images: {e}")
 
@@ -51,34 +66,77 @@ class GeminiModel(BaseGenerativeModel):
             st.error(f"Error evaluating signature: {e}")
             return False
 
-    def _process_response(self, response, cols, index, evaluation_prompt):
-        for part in response.candidates[0].content.parts:
+    def _process_response(
+        self,
+        image: bytes,
+        cols: list,
+        index: int,
+        prompt: dict,
+        evaluation_prompt: str | None = None,
+        is_additional: bool = True,
+    ):
+        for part in image.candidates[0].content.parts:
             if part.inline_data is not None:
-                image = Image.open(BytesIO(part.inline_data.data))
-                self._display_image(image, cols, index, evaluation_prompt)
+                img = Image.open(BytesIO(part.inline_data.data))
+                self._display_image(
+                    image=img,
+                    cols=cols,
+                    index=index,
+                    prompt=prompt,
+                    evaluation_prompt=evaluation_prompt,
+                    is_additional=is_additional,
+                )
 
 
 class GeminiModelV3(GeminiModel):
     model = "imagen-3.0-generate-002"
 
-    def generate(
-        self, prompt: str, evaluation_prompt: str | None = None, num_of_images: int = 3
+    def _generate_images(
+        self,
+        prompts: list[dict],
+        evaluation_prompt: str | None = None,
+        is_additional: bool = True,
     ):
         image_container = st.container()
         try:
             with image_container:
                 cols = st.columns(3)
-                for i in range(num_of_images):
-                    response = self.client.models.generate_images(
+                for i, prompt in enumerate(prompts):
+                    for v in prompt.values():
+                        prompt_text = v
+
+                    image = self.client.models.generate_images(
                         model=self.model,
-                        prompt=prompt,
+                        prompt=prompt_text,
                         config=types.GenerateImagesConfig(number_of_images=1),
                     )
-                    self._process_response(response, cols, i, evaluation_prompt)
+                    self._process_response(
+                        image=image,
+                        cols=cols,
+                        index=i,
+                        prompt=prompt,
+                        evaluation_prompt=evaluation_prompt,
+                        is_additional=is_additional,
+                    )
         except Exception as e:
             st.error(f"Error generating images: {e}")
 
-    def _process_response(self, response, cols, index, evaluation_prompt):
-        for generated_image in response.generated_images:
-            image = Image.open(BytesIO(generated_image.image.image_bytes))
-            self._display_image(image, cols, index, evaluation_prompt)
+    def _process_response(
+        self,
+        image: bytes,
+        cols: list,
+        index: int,
+        prompt: dict,
+        evaluation_prompt: str | None = None,
+        is_additional: bool = True,
+    ):
+        for generated_image in image.generated_images:
+            img = Image.open(BytesIO(generated_image.image.image_bytes))
+            self._display_image(
+                image=img,
+                cols=cols,
+                index=index,
+                prompt=prompt,
+                evaluation_prompt=evaluation_prompt,
+                is_additional=is_additional,
+            )

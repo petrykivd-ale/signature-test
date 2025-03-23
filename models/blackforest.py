@@ -13,15 +13,20 @@ class BflGenerativeModel(GeminiModel):
         super().__init__()
         self.bfl_api_key = st.secrets["BLF_API_KEY"]
 
-    def generate(
-        self, prompt: str, evaluation_prompt: str | None, num_of_images: int = 3
-    ) -> Image.Image | None:
+    def _generate_images(
+        self,
+        prompts: list[dict],
+        evaluation_prompt: str | None = None,
+        is_additional: bool = True,
+    ):
         image_container = st.container()
-
         try:
             with image_container:
                 cols = st.columns(3)
-                for i in range(num_of_images):
+                for i, prompt in enumerate(prompts):
+                    for v in prompt.values():
+                        prompt_text = v
+
                     response = requests.post(
                         "https://api.us1.bfl.ai/v1/flux-dev",
                         headers={
@@ -29,20 +34,40 @@ class BflGenerativeModel(GeminiModel):
                             "x-key": self.bfl_api_key,
                             "Content-Type": "application/json",
                         },
-                        json={
-                            "prompt": prompt,
-                        },
+                        json={"prompt": prompt_text},
                     ).json()
 
                     generated_image = self._get_image(response["id"])
-                    self._process_response(generated_image, cols, i, evaluation_prompt)
+                    self._process_response(
+                        image=generated_image,
+                        cols=cols,
+                        index=i,
+                        prompt=prompt,
+                        evaluation_prompt=evaluation_prompt,
+                        is_additional=is_additional,
+                    )
 
         except Exception as e:
-            st.error(f"Error generating image: {e}")
+            st.error(f"Error generating images: {e}")
 
-    def _process_response(self, response, cols, index, evaluation_prompt):
-        image = Image.open(BytesIO(response))
-        self._display_image(image, cols, index, evaluation_prompt)
+    def _process_response(
+        self,
+        image: bytes,
+        cols: list,
+        index: int,
+        prompt: dict,
+        evaluation_prompt: str,
+        is_additional: bool = True,
+    ):
+        img = Image.open(BytesIO(image))
+        self._display_image(
+            image=img,
+            cols=cols,
+            index=index,
+            prompt=prompt,
+            evaluation_prompt=evaluation_prompt,
+            is_additional=is_additional,
+        )
 
     def _get_image(self, request_id: str) -> bytes:
         while True:
