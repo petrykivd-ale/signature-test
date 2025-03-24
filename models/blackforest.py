@@ -35,9 +35,12 @@ class BflGenerativeModel(GeminiModel):
                             "Content-Type": "application/json",
                         },
                         json={"prompt": prompt_text},
-                    ).json()
+                    )
+                    if response.status_code == 402:
+                        st.error("Insufficient credits to generate images.")
+                        return
 
-                    generated_image = self._get_image(response["id"])
+                    generated_image = self._get_image(response.json()["id"])
                     self._process_response(
                         image=generated_image,
                         cols=cols,
