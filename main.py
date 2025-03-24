@@ -1,7 +1,7 @@
 import streamlit as st
 
 from models.blackforest import BflGenerativeModel
-from models.gemini import GeminiModel, GeminiModelV3
+# from models.gemini import GeminiModel, GeminiModelV3
 from prompts import (
     DEFAULT_SIGNATURE_PROMPT,
     CHAOTIC_SIGNATURE_PROMPT,
@@ -15,16 +15,16 @@ from prompts import (
     FLAMBOYANT_SIGNATURE_PROMPT,
     MASCULINE_SIGNATURE_PROMPT,
     FLAMBOYANT_FEMININE_PROMPT,
-    EVALUATION_PROMPT,
     FEMININE_GEOMETRY_PROMPT,
     FEMININE_STAR_SIGNATURE_PROMPT,
+    # EVALUATION_PROMPT,
 )
 
 
 model_mapper = {
-    "gemini": GeminiModel,
-    "gemini_v3": GeminiModelV3,
     "blackforest": BflGenerativeModel,
+    # "gemini": GeminiModel,
+    # "gemini_v3": GeminiModelV3,
 }
 
 
@@ -37,7 +37,7 @@ st.write("Generate a unique signature.")
 
 option = st.selectbox(
     "Choose model for generation:",
-    ("gemini", "gemini_v3", "blackforest"),
+    ("blackforest"),
 )
 
 
@@ -86,13 +86,13 @@ with st.expander("Customize Signature Prompts"):
     )
 
 
-agree = st.checkbox("Turn on evaluation prompt")
+# agree = st.checkbox("Turn on evaluation prompt")
 
-evaluation_prompt = None
-if agree:
-    evaluation_prompt = st.text_area(
-        "Customize your signature evaluation prompt", value=EVALUATION_PROMPT
-    )
+# evaluation_prompt = None
+# if agree:
+#     evaluation_prompt = st.text_area(
+#         "Customize your signature evaluation prompt", value=EVALUATION_PROMPT
+#     )
 
 
 model = model_mapper[option]()
@@ -124,11 +124,11 @@ options = st.multiselect(
 
 if st.button("Generate Signature"):
     selected_prompts = [prompt for prompt in prompts if list(prompt.keys())[0] in options]
-    model.generate(selected_prompts, evaluation_prompt)
+    model.generate(selected_prompts)
 
 
 if st.session_state.get("trigger_generate_more"):
     st.write(f"More like: {list(st.session_state.generate_more_prompt)[0]}")
-    model.generate_more(st.session_state.generate_more_prompt, evaluation_prompt)
+    model.generate_more(st.session_state.generate_more_prompt)
     st.session_state.trigger_generate_more = False
     st.session_state.generate_more_prompt = ""
