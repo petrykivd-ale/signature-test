@@ -1,6 +1,7 @@
 import streamlit as st
 
 from models.blackforest import BflGenerativeModel
+
 # from models.gemini import GeminiModel, GeminiModelV3
 from prompts import (
     DEFAULT_SIGNATURE_PROMPT,
@@ -41,50 +42,67 @@ option = st.selectbox(
 )
 
 
+# Callback function to update other fields
+def update_fields():
+    st.session_state.updated_text = f"Hello, {st.session_state.name}!"
+
+
+# Input field
+name = st.text_input(
+    "Enter your name:", value="Allon Mason", key="name", on_change=update_fields
+)
+
+
 with st.expander("Customize Signature Prompts"):
     default_signature_prompt = st.text_area(
-        "Default Signature Prompt", value=DEFAULT_SIGNATURE_PROMPT
+        "Default Signature Prompt", value=DEFAULT_SIGNATURE_PROMPT.format(name=name)
     )
     chaotic_signature_prompt = st.text_area(
-        "Chaotic Signature Prompt", value=CHAOTIC_SIGNATURE_PROMPT
+        "Chaotic Signature Prompt", value=CHAOTIC_SIGNATURE_PROMPT.format(name=name)
     )
     elegant_signature_prompt = st.text_area(
-        "Elegant Signature Prompt", value=ELEGANT_SIGNATURE_PROMPT
+        "Elegant Signature Prompt", value=ELEGANT_SIGNATURE_PROMPT.format(name=name)
     )
     feminine_heart_signature_prompt = st.text_area(
-        "Feminine Heart Signature Prompt", value=FEMININE_HEART_SIGNATURE_PROMPT
+        "Feminine Heart Signature Prompt",
+        value=FEMININE_HEART_SIGNATURE_PROMPT.format(name=name),
     )
     feminine_star_signature_prompt = st.text_area(
-        "Feminine Star Signature Prompt", value=FEMININE_STAR_SIGNATURE_PROMPT
+        "Feminine Star Signature Prompt",
+        value=FEMININE_STAR_SIGNATURE_PROMPT.format(name=name),
     )
     feminine_geometry_signature_prompt = st.text_area(
-        "Feminine Geometry Signature Prompt", value=FEMININE_GEOMETRY_PROMPT
+        "Feminine Geometry Signature Prompt",
+        value=FEMININE_GEOMETRY_PROMPT.format(name=name),
     )
     corporate_signature_prompt = st.text_area(
-        "Corporate Signature Prompt", value=CORPORATE_SIGNATURE_PROMPT
+        "Corporate Signature Prompt", value=CORPORATE_SIGNATURE_PROMPT.format(name=name)
     )
     old_hollywood_signature_prompt = st.text_area(
-        "Old Hollywood Signature Prompt", value=OLD_HOLLYWOOD_SIGNATURE_PROMPT
+        "Old Hollywood Signature Prompt",
+        value=OLD_HOLLYWOOD_SIGNATURE_PROMPT.format(name=name),
     )
     graffiti_signature_prompt = st.text_area(
-        "Graffiti Signature Prompt", value=GRAFFITI_SIGNATURE_PROMPT
+        "Graffiti Signature Prompt", value=GRAFFITI_SIGNATURE_PROMPT.format(name=name)
     )
     min_sharp_signature_prompt = st.text_area(
-        "Minimalist Sharp Signature Prompt", value=MIN_SHARP_SIGNATURE_PROMPT
+        "Minimalist Sharp Signature Prompt",
+        value=MIN_SHARP_SIGNATURE_PROMPT.format(name=name),
     )
     childlike_signature_prompt = st.text_area(
-        "Childlike Signature Prompt", value=CHILDLIKE_SIGNATURE_PROMPT
+        "Childlike Signature Prompt", value=CHILDLIKE_SIGNATURE_PROMPT.format(name=name)
     )
     flamboyant_signature_prompt = st.text_area(
-        "Flamboyant Signature Prompt", value=FLAMBOYANT_SIGNATURE_PROMPT
+        "Flamboyant Signature Prompt",
+        value=FLAMBOYANT_SIGNATURE_PROMPT.format(name=name),
     )
     masculine_signature_prompt = st.text_area(
-        "Masculine Signature Prompt", value=MASCULINE_SIGNATURE_PROMPT
+        "Masculine Signature Prompt", value=MASCULINE_SIGNATURE_PROMPT.format(name=name)
     )
     flamboyant_feminine_signature_prompt = st.text_area(
-        "Flamboyant Feminine Signature Prompt", value=FLAMBOYANT_FEMININE_PROMPT
+        "Flamboyant Feminine Signature Prompt",
+        value=FLAMBOYANT_FEMININE_PROMPT.format(name=name),
     )
-
 
 # agree = st.checkbox("Turn on evaluation prompt")
 
@@ -111,7 +129,9 @@ prompts = [
     {"Childlike & Naive": childlike_signature_prompt},
     {"Flamboyant Artistic": flamboyant_signature_prompt},
     {"Masculine": masculine_signature_prompt},
-    {"Flamboyant Flourish – Feminine Signature Style": flamboyant_feminine_signature_prompt},
+    {
+        "Flamboyant Flourish – Feminine Signature Style": flamboyant_feminine_signature_prompt
+    },
 ]
 
 prompts_names = [list(prompt.keys())[0] for prompt in prompts]
@@ -123,7 +143,9 @@ options = st.multiselect(
 )
 
 if st.button("Generate Signature"):
-    selected_prompts = [prompt for prompt in prompts if list(prompt.keys())[0] in options]
+    selected_prompts = [
+        prompt for prompt in prompts if list(prompt.keys())[0] in options
+    ]
     model.generate(selected_prompts)
 
 
