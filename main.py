@@ -53,55 +53,78 @@ name = st.text_input(
 )
 
 
+def generate_spelling_name(name: str):
+    s = name.split()
+    name_with_dashes = " ".join(["-".join(n) for n in s])
+    return name_with_dashes
+
+
 with st.expander("Customize Signature Prompts"):
+    spelling_name = generate_spelling_name(name)
+
     default_signature_prompt = st.text_area(
-        "Default Signature Prompt", value=DEFAULT_SIGNATURE_PROMPT.format(name=name)
+        "Default Signature Prompt",
+        value=DEFAULT_SIGNATURE_PROMPT.format(name=name, spelling_name=spelling_name),
     )
     chaotic_signature_prompt = st.text_area(
-        "Chaotic Signature Prompt", value=CHAOTIC_SIGNATURE_PROMPT.format(name=name)
+        "Chaotic Signature Prompt",
+        value=CHAOTIC_SIGNATURE_PROMPT.format(name=name, spelling_name=spelling_name),
     )
     elegant_signature_prompt = st.text_area(
-        "Elegant Signature Prompt", value=ELEGANT_SIGNATURE_PROMPT.format(name=name)
+        "Elegant Signature Prompt",
+        value=ELEGANT_SIGNATURE_PROMPT.format(name=name, spelling_name=spelling_name),
     )
     feminine_heart_signature_prompt = st.text_area(
         "Feminine Heart Signature Prompt",
-        value=FEMININE_HEART_SIGNATURE_PROMPT.format(name=name),
+        value=FEMININE_HEART_SIGNATURE_PROMPT.format(
+            name=name, spelling_name=spelling_name
+        ),
     )
     feminine_star_signature_prompt = st.text_area(
         "Feminine Star Signature Prompt",
-        value=FEMININE_STAR_SIGNATURE_PROMPT.format(name=name),
+        value=FEMININE_STAR_SIGNATURE_PROMPT.format(
+            name=name, spelling_name=spelling_name
+        ),
     )
     feminine_geometry_signature_prompt = st.text_area(
         "Feminine Geometry Signature Prompt",
-        value=FEMININE_GEOMETRY_PROMPT.format(name=name),
+        value=FEMININE_GEOMETRY_PROMPT.format(name=name, spelling_name=spelling_name),
     )
     corporate_signature_prompt = st.text_area(
-        "Corporate Signature Prompt", value=CORPORATE_SIGNATURE_PROMPT.format(name=name)
+        "Corporate Signature Prompt",
+        value=CORPORATE_SIGNATURE_PROMPT.format(name=name, spelling_name=spelling_name),
     )
     old_hollywood_signature_prompt = st.text_area(
         "Old Hollywood Signature Prompt",
-        value=OLD_HOLLYWOOD_SIGNATURE_PROMPT.format(name=name),
+        value=OLD_HOLLYWOOD_SIGNATURE_PROMPT.format(
+            name=name, spelling_name=spelling_name
+        ),
     )
     graffiti_signature_prompt = st.text_area(
-        "Graffiti Signature Prompt", value=GRAFFITI_SIGNATURE_PROMPT.format(name=name)
+        "Graffiti Signature Prompt",
+        value=GRAFFITI_SIGNATURE_PROMPT.format(name=name, spelling_name=spelling_name),
     )
     min_sharp_signature_prompt = st.text_area(
         "Minimalist Sharp Signature Prompt",
-        value=MIN_SHARP_SIGNATURE_PROMPT.format(name=name),
+        value=MIN_SHARP_SIGNATURE_PROMPT.format(name=name, spelling_name=spelling_name),
     )
     childlike_signature_prompt = st.text_area(
-        "Childlike Signature Prompt", value=CHILDLIKE_SIGNATURE_PROMPT.format(name=name)
+        "Childlike Signature Prompt",
+        value=CHILDLIKE_SIGNATURE_PROMPT.format(name=name, spelling_name=spelling_name),
     )
     flamboyant_signature_prompt = st.text_area(
         "Flamboyant Signature Prompt",
-        value=FLAMBOYANT_SIGNATURE_PROMPT.format(name=name),
+        value=FLAMBOYANT_SIGNATURE_PROMPT.format(
+            name=name, spelling_name=spelling_name
+        ),
     )
     masculine_signature_prompt = st.text_area(
-        "Masculine Signature Prompt", value=MASCULINE_SIGNATURE_PROMPT.format(name=name)
+        "Masculine Signature Prompt",
+        value=MASCULINE_SIGNATURE_PROMPT.format(name=name, spelling_name=spelling_name),
     )
     flamboyant_feminine_signature_prompt = st.text_area(
         "Flamboyant Feminine Signature Prompt",
-        value=FLAMBOYANT_FEMININE_PROMPT.format(name=name),
+        value=FLAMBOYANT_FEMININE_PROMPT.format(name=name, spelling_name=spelling_name),
     )
 
 # agree = st.checkbox("Turn on evaluation prompt")

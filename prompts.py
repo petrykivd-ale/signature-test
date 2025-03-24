@@ -1,68 +1,81 @@
 DEFAULT_SIGNATURE_PROMPT = (
     "Create a cool looking clean signature on one line with dark blue on paper for the name {name} top down view straight view. "
-    "Make the signature look a bit scribly with fast ink motions and sometimes a fast underline strike of the pen."
+    "Make the signature look a bit scribly with fast ink motions and sometimes a fast underline strike of the pen. "
+    "Ensure proper spelling exactly as {spelling_name}."
 )
 
 CHAOTIC_SIGNATURE_PROMPT = (
     "Create a chaotic, fast-motion signature with dark blue ink for the name {name}, "
-    "featuring sharp angles, rapid loops, and an aggressive underline, top-down view on white paper."
+    "featuring sharp angles, rapid loops, and an aggressive underline, top-down view on white paper. "
+    "Ensure proper spelling exactly as {spelling_name}."
 )
 
 ELEGANT_SIGNATURE_PROMPT = (
     "Create a graceful, calligraphic signature with dark blue ink for {name}, featuring long flourishes, "
-    "thin upstrokes, and thick downstrokes, inspired by fountain pen calligraphy, top-down view."
+    "thin upstrokes, and thick downstrokes, inspired by fountain pen calligraphy, top-down view. "
+    "Ensure proper spelling exactly as {spelling_name}."
 )
 
 FEMININE_HEART_SIGNATURE_PROMPT = (
     "Generate a rounded, bubbly, playful signature for {name} using dark blue ink, with wide loops and heart-shaped flourishes, "
-    "seen from a top-down perspective on clean white paper."
+    "seen from a top-down perspective on clean white paper. "
+    "Ensure proper spelling exactly as {spelling_name}."
 )
 
 FEMININE_STAR_SIGNATURE_PROMPT = (
     "Generate a rounded, bubbly, playful signature for {name} in dark blue ink, "
     "with wide loops and delicate star-shaped flourishes integrated into the strokes, "
-    "seen from a top-down perspective on clean white paper."
+    "seen from a top-down perspective on clean white paper. "
+    "Ensure proper spelling exactly as {spelling_name}."
 )
 
 FEMININE_GEOMETRY_PROMPT = (
     "Create a soft, whimsical signature for {name} using dark blue ink, "
-    "featuring smooth loops and small geometric flourishes like triangles, diamonds, and circles, top-down view on white paper."
+    "featuring smooth loops and small geometric flourishes like triangles, diamonds, and circles, top-down view on white paper. "
+    "Ensure proper spelling exactly as {spelling_name}."
 )
 
 CORPORATE_SIGNATURE_PROMPT = (
     "Create a neat, minimal, corporate-style signature for {name} with evenly spaced block cursive, "
-    "light blue ink on white paper, seen top-down, with clean pen strokes and no flourish."
+    "light blue ink on white paper, seen top-down, with clean pen strokes and no flourish. "
+    "Ensure proper spelling exactly as {spelling_name}."
 )
 
 OLD_HOLLYWOOD_SIGNATURE_PROMPT = (
     "Generate a dramatic, vintage-style signature for {name} in dark blue ink, "
-    "inspired by 1950s celebrity autographs, with bold curls, sweeping lines, and stylish flair, top-down view."
+    "inspired by 1950s celebrity autographs, with bold curls, sweeping lines, and stylish flair, top-down view. "
+    "Ensure proper spelling exactly as {spelling_name}."
 )
 
 GRAFFITI_SIGNATURE_PROMPT = (
     "Create a graffiti-style signature for {name} in dark blue ink, with exaggerated motion, "
-    "disconnected letters, abstract strokes, and street-art energy, top-down on paper."
+    "disconnected letters, abstract strokes, and street-art energy, top-down on paper. "
+    "Ensure proper spelling exactly as {spelling_name}."
 )
 
 MIN_SHARP_SIGNATURE_PROMPT = (
     "Generate a signature for {name} using sharp, minimal, geometric strokes with dark blue ink, "
-    "highly angular and simplified, almost cryptic in style, seen from a top-down view."
+    "highly angular and simplified, almost cryptic in style, seen from a top-down view. "
+    "Ensure proper spelling exactly as {spelling_name}."
 )
 
 CHILDLIKE_SIGNATURE_PROMPT = (
     "Create a childlike, uneven signature for {name} with dark blue ink, featuring shaky lines, "
-    "inconsistent spacing, and innocent loops, as if drawn by a young person, top-down view."
+    "inconsistent spacing, and innocent loops, as if drawn by a young person, top-down view. "
+    "Ensure proper spelling exactly as {spelling_name}."
 )
 
 FLAMBOYANT_SIGNATURE_PROMPT = (
     "Generate an artistic, dramatic signature for {name} with bold, looping strokes, exaggerated tails, "
-    "and expressive swirls in dark blue ink, top-down view on textured paper."
+    "and expressive swirls in dark blue ink, top-down view on textured paper. "
+    "Ensure proper spelling exactly as {spelling_name}."
 )
 
 MASCULINE_SIGNATURE_PROMPT = (
     "A bold, masculine signature of the name {name} in dark blue ink, featuring strong, "
     "sweeping flourishes and confident pen strokes, slightly angular with sharp turns and bold loops, "
-    "signed with a fountain pen on white paper, top-down view, high contrast, elegant but powerful."
+    "signed with a fountain pen on white paper, top-down view, high contrast, elegant but powerful. "
+    "Ensure proper spelling exactly as {spelling_name}."
 )
 
 FLAMBOYANT_FEMININE_PROMPT = (
@@ -71,7 +84,8 @@ FLAMBOYANT_FEMININE_PROMPT = (
     "with a feminine and flamboyant touch—like calligraphy on overdrive. "
     "The strokes are graceful but expressive, with ornamental swirls extending from both the beginning and end of the signature, "
     "suggesting confidence, flair, and a touch of theatricality. "
-    "It looks like it was written slowly, with deliberate motion and a light, artistic hand."
+    "It looks like it was written slowly, with deliberate motion and a light, artistic hand. "
+    "Ensure proper spelling exactly as {spelling_name}."
 )
 
 
