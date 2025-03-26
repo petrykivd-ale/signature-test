@@ -1,6 +1,7 @@
 
 import streamlit as st
 import io
+
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
@@ -25,32 +26,43 @@ class FontSignatureService:
                     self._display_image(file.stem, img, cols, i)
 
     @staticmethod
-    def create(text: str, font_path: Path):
+    def create(text: str, font_path: Path, img_width: int = 512, img_height: int = 256):
         # Create image with white background
-        img = Image.new("RGB", (512, 256), color="white")
+        img = Image.new("RGB", (img_width, img_height), color="white")
         d = ImageDraw.Draw(img)
 
-        # Load the font
-        font = ImageFont.truetype(str(font_path), 40)
-
+        # Start with initial font size
+        font_size = 100
+        font = ImageFont.truetype(str(font_path), font_size)
+        
+        # Get text bounding box
+        bbox = d.textbbox((0, 0), text, font=font)
+        text_width = bbox[2] - bbox[0]
+        
+        # Reduce font size until text fits or minimum size reached
+        while text_width > img_width * 0.9 and font_size > 10:  # 90% of image width
+            font_size -= 2
+            font = ImageFont.truetype(str(font_path), font_size)
+            bbox = d.textbbox((0, 0), text, font=font)
+            text_width = bbox[2] - bbox[0]
+        
+        # Get final text dimensions
         bbox = d.textbbox((0, 0), text, font=font)
         text_width = bbox[2] - bbox[0]
         text_height = bbox[3] - bbox[1]
-
-        # Calculate position
-        x = (img.width - text_width) / 2
-        y = (img.height - text_height) / 2
-
+        
+        # Calculate position (centered)
+        x = (img_width - text_width) / 2
+        y = (img_height - text_height) / 2
+        
         # Draw text
         d.text((x, y), text, font=font, fill="darkblue")
-
+        
         # Save image to buffer
         with io.BytesIO() as buffer:
             img.save(buffer, format="JPEG")
             buffer.seek(0)
-
-            img = Image.open(io.BytesIO(buffer.getvalue()))
-            return img
+            return Image.open(io.BytesIO(buffer.getvalue()))
 
     def _display_image(
         self,
