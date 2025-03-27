@@ -145,7 +145,6 @@ if option == "blackforest":
 
     prompts = [
         {"Standard & Clean": default_signature_prompt},
-        {"Standard & Clean": default_signature_prompt},
         {"Messy & Fast Scribble": chaotic_signature_prompt},
         {"Elegant Calligraphy": elegant_signature_prompt},
         {"Feminine & Bubbly (Heart Flourishes)": feminine_heart_signature_prompt},
@@ -154,6 +153,7 @@ if option == "blackforest":
         {"Corporate & Precise": corporate_signature_prompt},
         {"Old Hollywood Glam": old_hollywood_signature_prompt},
         {"Graffiti-Inspired": graffiti_signature_prompt},
+        {"Standard": default_signature_prompt},
         {"Minimalist Sharp": min_sharp_signature_prompt},
         {"Childlike & Naive": childlike_signature_prompt},
         {"Flamboyant Artistic": flamboyant_signature_prompt},
