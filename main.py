@@ -40,7 +40,7 @@ st.write("Generate a unique signature.")
 
 option = st.selectbox(
     "Choose model for generation:",
-    ("font_based", "blackforest"),
+    ("blackforest", "font_based"),
 )
 
 
