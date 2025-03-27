@@ -145,6 +145,7 @@ if option == "blackforest":
 
     prompts = [
         {"Standard & Clean": default_signature_prompt},
+        {"Standard & Clean": default_signature_prompt},
         {"Messy & Fast Scribble": chaotic_signature_prompt},
         {"Elegant Calligraphy": elegant_signature_prompt},
         {"Feminine & Bubbly (Heart Flourishes)": feminine_heart_signature_prompt},

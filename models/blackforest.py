@@ -22,7 +22,7 @@ class BflGenerativeModel(GeminiModel):
         image_container = st.container()
         try:
             with image_container:
-                cols = st.columns(3)
+                cols = st.columns(5)
                 for i, prompt in enumerate(prompts):
                     for v in prompt.values():
                         prompt_text = v

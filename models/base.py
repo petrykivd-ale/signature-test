@@ -115,7 +115,7 @@ class BaseGenerativeModel(IBaseGenerativeModel):
                         st.button("Show more like this", on_click=on_click, key=index)
         else:
             st.session_state.generated_images.append(image)
-            with cols[index % 3]:
+            with cols[index % 5]:
                 st.image(image, use_container_width=True)
                 if is_additional:
                     st.button("Show more like this", on_click=on_click, key=index)
