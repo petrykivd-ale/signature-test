@@ -23,6 +23,9 @@ from prompts import (
 )
 
 
+st.set_page_config(layout="wide")
+
+
 model_mapper = {
     "blackforest": BflGenerativeModel,
     "font_based": FontSignatureService,
